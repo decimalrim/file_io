@@ -5,8 +5,58 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadAndPrintExam {
+	
+	public static List<String> getAllLines(File file) {
+		
+			
+			if (file.exists() && file.isFile()) {
+				FileReader reader = null;
+				BufferedReader bufferedReader = null;
+				
+				try { 
+					reader = new FileReader(file, Charset.forName("UTF-8"));
+					bufferedReader = new BufferedReader(reader);
+					
+					List<String> lineList = new ArrayList<>();
+					
+					String line = null;
+					
+					while ((line = bufferedReader.readLine()) != null) {
+						lineList.add(line + "\n");
+					}
+					return lineList;
+				}
+				catch(IOException ioe) {
+					System.out.println(ioe.getMessage());
+					ioe.printStackTrace();
+				}
+				finally {
+					if (bufferedReader != null) {
+						try {
+							bufferedReader.close();
+						} catch(IOException ioe) {}
+						
+					if (reader != null) {
+						try {
+							reader.close();
+						} catch (IOException ioe) {}
+						
+					}
+									
+				}
+				
+			}		
+							
+			}
+			// 텅빈 리스트 반환
+			return new ArrayList<>();
+		}
+
+	
 	
 	public static void main(String[] args) {
 		
